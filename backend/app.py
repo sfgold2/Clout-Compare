@@ -2,7 +2,7 @@ import os
 import util
 import db
 import random
-from flask import Flask, json, request
+from flask import Flask, json, request, render_template
 from flask_cors import CORS
 from flask_restful import Api
 from resources.user import User
@@ -67,20 +67,36 @@ people = {"Cristiano Ronaldo" : 368,
 "Shawn Mendes": 64,
 "Narendra Modi": 62}
 
-# Vanilla Flask route
-@app.route("/", methods=["GET"])
-def index():
-    return "Welcome to my ZotHacks 2020 project!"
+vs_pair = {}
 
-@app.route("/game", methods=["GET"])
-def game():
+def get_rand():
+    try:
+        first_person, followers1 = random.choice(list(people.items()))
+        del people[first_person]
+        sec_person, followers2 = random.choice(list(people.items()))
+        del people[sec_person]
+        vs_list = ((first_person, followers1), (sec_person, followers2))
+        return vs_list
+    except:
+        return False
+
+# Vanilla Flask route
+@app.route("/", methods=["GET", "POST"])
+def index():
     score = 0
-    first_person, followers1 = random.choice(list(people.items()))
-    del people[first_person]
-    sec_person, followers2 = random.choice(list(people.items()))
-    del people[sec_person]
-    vs_list = ((first_person, followers1), (sec_person, followers2))
-    return f"{first_person} and {sec_person}"
+    game_over = False
+    if request.method == "POST":
+        if request.form.get("person1"):
+            pass
+        elif request.form.get("person2"):
+            pass
+    elif request.method == "GET":
+        new_people = get_rand()
+        vs_pair[new_people[0][0]] = new_people[0][1]
+        vs_pair[new_people[1][0]] = new_people[1][1]
+        return render_template("index.html", title='Clout Compare', person1 = new_people[0][0], person2 = new_people[1][0], test = vs_pair)
+
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
