@@ -17,55 +17,55 @@ CORS(app)
 
 api = Api(app)
 
-people = {"Cristiano Ronaldo" : 'cristiano',
-"Lionel Messi": 'leomessi',
-"Kylie Jenner": 'kyliejenner',
-"Dwayne Johnson": 'therock',
-"Ariana Grande": 'arianagrande',
-"Selena Gomez": 'selenagomez',
-"Kim Kardashian": 'kimkardashian',
-"Beyoncé": 'beyonce',
-"Justin Bieber": 'justinbieber',
-"Kendall Jenner": 'kendalljenner',
-"Khloé Kardashian": 'khloekardashian',
-"National Geographic": 'natgeo',
-"Taylor Swift": 'taylorswift',
-"Jennifer Lopez": 'jlo',
-"Nike": 'nike',
-"Virat Kohli":	'virat.kohli',
-"Neymar": 'neymarjr',
-"Nicki Minaj":	'nickiminaj',
-"Miley Cyrus":	'mileycyrus',
-"Kourtney Kardashian":	'kourtneykardash',
-"Katy Perry": 'katyperry',
-"Kevin Hart": 'kevinhart4real',
-"Demi Lovato":	'ddlovato',
-"Cardi B":	'iamcardib',
-"Rihanna":	'badgalriri',
-"Zendaya":	'zendaya',
-"Ellen DeGeneres":	'theellenshow',
-"Real Madrid CF": 'realmadrid',
-"FC Barcelona": 'fcbarcelona',
-"LeBron James": 'kingjames',
-"Chris Brown": 'chrisbrownofficial',
-"Drake": 'champagnepapi',
-"Billie Eilish": 'billieeilish',
-"UEFA Champions League": 'championsleague',
-"Vin Diesel": 'vindiesel',
-"Dua Lipa": 'dualipa',
-"NASA": 'nasa',
-"Gigi Hadid": 'gigihadid',
-"Shakira":	'shakira',
-"Victoria's Secret": 'victoriassecret',
-"Priyanka Chopra": 'priyankachopra',
-"David Beckham": 'davidbeckham',
-"Shraddha Kapoor":	'shraddhakapoor',
-"Gal Gadot": 'gal_gadot',
-"Lisa": 'lalalalisa_m',
-"Snoop Dogg": 'snoopdogg',	
-"Neha Kakkar":	'nehakakkar',
-"Shawn Mendes": 'shawnmendes',
-"Narendra Modi": 'narendramodi'}
+people = {"Cristiano Ronaldo" : 368,
+"Lionel Messi": 283,
+"Kylie Jenner": 282,
+"Dwayne Johnson": 279,
+"Ariana Grande": 276,
+"Selena Gomez": 273,
+"Kim Kardashian": 264,
+"Beyoncé": 219,
+"Justin Bieber": 203,
+"Kendall Jenner": 200,
+"Khloé Kardashian": 197,
+"National Geographic": 192,
+"Taylor Swift": 185,
+"Jennifer Lopez": 182,
+"Nike": 181,
+"Virat Kohli":	167,
+"Neymar": 165,
+"Nicki Minaj":	162,
+"Miley Cyrus":	152,
+"Kourtney Kardashian":	150,
+"Katy Perry": 141,
+"Kevin Hart": 128,
+"Demi Lovato":	118,
+"Cardi B":	114,
+"Rihanna":	111,
+"Zendaya":	110,
+"Ellen DeGeneres":	110,
+"Real Madrid CF": 106,
+"FC Barcelona": 102,
+"LeBron James": 102,
+"Chris Brown": 96,
+"Drake": 96,
+"Billie Eilish": 95,
+"UEFA Champions League": 82,
+"Vin Diesel": 76,
+"Dua Lipa": 75,
+"NASA": 71,
+"Gigi Hadid": 71,
+"Shakira":	71,
+"Victoria's Secret": 70,
+"Priyanka Chopra":	70,
+"David Beckham": 69,
+"Shraddha Kapoor":	67,
+"Gal Gadot": 67,
+"Lisa": 66,
+"Snoop Dogg": 65,	
+"Neha Kakkar":	64,
+"Shawn Mendes": 64,
+"Narendra Modi": 62}
 
 
 score = 0
@@ -85,10 +85,10 @@ def get_rand():
 def get_higher(pair):
     higher = 0
     fin_key = None
-    for key, val in pair.items():
-        if val >= higher:
-            higher = val
-            fin_key = key
+    for inds in pair:
+        if inds[1] >= higher:
+            higher = inds[1]
+            fin_key = inds[0]
     return (fin_key, higher)
 
 # Vanilla Flask route
@@ -107,36 +107,46 @@ def game():
     global game_over
     if request.method == "GET":
         new_people = get_rand()
-        vs_pair.append(new_people[0][0], new_people[0][1])
-        vs_pair.append(new_people[1][0], new_people[1][1])
-        higher_pers = get_higher()
-        return render_template("game.html", title='Clout Compare', person1 = new_people[0][0], person2 = new_people[1][0], test = vs_pair)
+        vs_pair.append((new_people[0][0], new_people[0][1]))
+        vs_pair.append((new_people[1][0], new_people[1][1]))
+        higher_pers = get_higher(vs_pair)
+        return render_template("game.html", title='Clout Compare', person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
     if request.method == "POST":
         if request.form.get("player1"):
+            print(higher_pers[0])
+            print(vs_pair)
             if higher_pers[0] == vs_pair[0][0]:
                 score+=1
-                vs_pair = ()
-                higher_pers = None
+                vs_pair = []
                 new_people = get_rand()
-                vs_pair.append(new_people[0][0], new_people[0][1])
-                vs_pair.append(new_people[1][0], new_people[1][1])
+                vs_pair.append((new_people[0][0], new_people[0][1]))
+                vs_pair.append((new_people[1][0], new_people[1][1]))
+                higher_pers = get_higher(vs_pair)
                 print(score)
-                return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0])
+                return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
             else:
                 game_over = True
+                vs_pair = []
+                higher_pers = None
+                score = 0
                 return "Game over"
         elif request.form.get("player2"):
-            if higher_pers[0] == vs_pair[0][0]:
+            print(higher_pers[0])
+            print(vs_pair)
+            if higher_pers[0] == vs_pair[1][0]:
                 score+=1
-                vs_pair = ()
-                higher_pers = None
+                vs_pair = []
                 new_people = get_rand()
-                vs_pair.append(new_people[0][0], new_people[0][1])
-                vs_pair.append(new_people[1][0], new_people[1][1])
+                vs_pair.append((new_people[0][0], new_people[0][1]))
+                vs_pair.append((new_people[1][0], new_people[1][1]))
+                higher_pers = get_higher(vs_pair)
                 print(score)
-                return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0])
+                return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
             else:
                 game_over = True
+                vs_pair = []
+                higher_pers = None
+                score = 0
                 return "Game over"
 @app.route("/creators", methods = ["GET"])
 def creators():
