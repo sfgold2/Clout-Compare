@@ -67,7 +67,9 @@ people = {"Cristiano Ronaldo" : 368,
 "Shawn Mendes": 64,
 "Narendra Modi": 62}
 
-vs_pair = {}
+
+score = 0
+game_over = False
 
 def get_rand():
     try:
@@ -80,24 +82,51 @@ def get_rand():
     except:
         return False
 
+def get_higher(pair):
+    higher = 0
+    fin_key = None
+    for key, val in pair.items():
+        if val >= higher:
+            higher = val
+            fin_key = key
+    return (fin_key, higher)
+
 # Vanilla Flask route
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def index():
-    score = 0
-    game_over = False
-    if request.method == "POST":
-        if request.form.get("person1"):
-            pass
-        elif request.form.get("person2"):
-            pass
-    elif request.method == "GET":
+    return render_template("index.html")
+
+higher_pers = None
+vs_pair = {}
+
+@app.route("/game", methods=["GET", "POST"])
+def game():
+    global score
+    global vs_pair
+    global higher_pers
+    if request.method == "GET":
         new_people = get_rand()
         vs_pair[new_people[0][0]] = new_people[0][1]
         vs_pair[new_people[1][0]] = new_people[1][1]
-        return render_template("index.html", title='Clout Compare', person1 = new_people[0][0], person2 = new_people[1][0], test = vs_pair)
+        higher_pers = get_higher()
+        return render_template("game.html", title='Clout Compare', person1 = new_people[0][0], person2 = new_people[1][0], test = vs_pair)
+    if request.method == "POST":
+        if request.form.get("player1"):
+            if higher_pers[0] == 
+                score+=1
+                vs_pair = {}
+                higher_pers = None
+                new_people = get_rand()
+                vs_pair[new_people[0][0]] = new_people[0][1]
+                vs_pair[new_people[1][0]] = new_people[1][1]
+                print(score)
+                return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0])
+        elif request.form.get("player2"):
+            return "other"
 
-    return render_template("index.html")
-
-
+@app.route("/creators", methods = ["GET"])
+def creators():
+    pass
+    
 if __name__ == "__main__":
     app.run(debug=True)
