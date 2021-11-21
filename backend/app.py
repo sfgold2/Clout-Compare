@@ -96,11 +96,17 @@ def get_higher(pair):
 def index():
     return render_template("index.html")
 
+#@app.route("/move_forward")
+#def move_forward():
+#    return render_template("celeb.html",)
+
+
+
 higher_pers = None
 vs_pair = []
 
-@app.route("/game", methods=["GET", "POST"])
-def game():
+@app.route("/move_forward", methods=["GET", "POST"])
+def move_forward():
     global score
     global vs_pair
     global higher_pers
@@ -110,7 +116,7 @@ def game():
         vs_pair.append((new_people[0][0], new_people[0][1]))
         vs_pair.append((new_people[1][0], new_people[1][1]))
         higher_pers = get_higher(vs_pair)
-        return render_template("game.html", title='Clout Compare', person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
+        return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
     if request.method == "POST":
         if request.form.get("player1"):
             print(higher_pers[0])
@@ -123,7 +129,7 @@ def game():
                 vs_pair.append((new_people[1][0], new_people[1][1]))
                 higher_pers = get_higher(vs_pair)
                 print(score)
-                return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
+                return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
             else:
                 game_over = True
                 vs_pair = []
@@ -141,13 +147,14 @@ def game():
                 vs_pair.append((new_people[1][0], new_people[1][1]))
                 higher_pers = get_higher(vs_pair)
                 print(score)
-                return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
+                return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
             else:
                 game_over = True
                 vs_pair = []
                 higher_pers = None
                 score = 0
                 return "Game over"
+
 @app.route("/creators", methods = ["GET"])
 def creators():
     pass
