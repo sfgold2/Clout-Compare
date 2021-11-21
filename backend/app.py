@@ -7,6 +7,7 @@ from flask_cors import CORS
 from flask_restful import Api
 from resources.user import User
 from dotenv import load_dotenv
+from googleimages_api import get_image
 
 # Load Environment variables
 load_dotenv()
@@ -116,7 +117,9 @@ def move_forward():
         vs_pair.append((new_people[0][0], new_people[0][1]))
         vs_pair.append((new_people[1][0], new_people[1][1]))
         higher_pers = get_higher(vs_pair)
-        return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
+        image1 = get_image(vs_pair[0][0])
+        image2 = get_image(vs_pair[1][0])
+        return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1], pers_image_1 = image1, pers_image_2 = image2)
     if request.method == "POST":
         if request.form.get("player1"):
             print(higher_pers[0])
@@ -128,14 +131,15 @@ def move_forward():
                 vs_pair.append((new_people[0][0], new_people[0][1]))
                 vs_pair.append((new_people[1][0], new_people[1][1]))
                 higher_pers = get_higher(vs_pair)
-                print(score)
-                return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
+                image1 = get_image(vs_pair[0][0])
+                image2 = get_image(vs_pair[1][0])
+                return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1], pers_image_1 = image1, pers_image_2 = image2)
             else:
                 game_over = True
                 vs_pair = []
                 higher_pers = None
                 score = 0
-                return "Game over"
+                return render_template("end.html")
         elif request.form.get("player2"):
             print(higher_pers[0])
             print(vs_pair)
@@ -146,18 +150,19 @@ def move_forward():
                 vs_pair.append((new_people[0][0], new_people[0][1]))
                 vs_pair.append((new_people[1][0], new_people[1][1]))
                 higher_pers = get_higher(vs_pair)
-                print(score)
-                return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1])
+                image1 = get_image(vs_pair[0][0])
+                image2 = get_image(vs_pair[1][0])
+                return render_template("celeb.html", person1 = new_people[0][0], person2 = new_people[1][0], followers1 = new_people[0][1], followers2 = new_people[1][1], pers_image_1 = image1, pers_image_2 = image2)
             else:
                 game_over = True
                 vs_pair = []
                 higher_pers = None
                 score = 0
-                return "Game over"
+                return render_template("end.html")
 
-@app.route("/creators", methods = ["GET"])
-def creators():
-    pass
+@app.route("/about", methods = ["GET"])
+def about():
+    return render_template("about.html")
     
 if __name__ == "__main__":
     app.run(debug=True)

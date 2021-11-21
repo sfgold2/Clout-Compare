@@ -1,8 +1,8 @@
 import curses
 from google_images_search import GoogleImagesSearch
 
-API_KEY = 'AIzaSyAJOKrRkt44bdPNdwBEFeR8QzgBkTWqmLc'
-PROJECT_CX = 'ac62a5a5d4b56d944'
+API_KEY = 'AIzaSyA7YhCenjjTQQCNReyzes3S6dCJKv4BbH8'
+PROJECT_CX = 'ff0ffdcf81de586e4'
 
 def get_image(query):
     gis = GoogleImagesSearch(API_KEY,  PROJECT_CX)

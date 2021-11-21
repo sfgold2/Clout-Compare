@@ -22,21 +22,22 @@
     <button class = "btn101"> <a href="index.html" style="color: #71797E; text-decoration:none;" > return home</a> </button>
     <h1 class = "title2"> who has more clout? </h1>
     <div>
-      <span class="dot"></span>
-      <span class="dot2"></span>
+      <img src="{{ pers_image_2 }}" class="dot" alt="" style="width:250px;height:250px;border-radius:200px;"
+        >
+      <img src="{{ pers_image_1 }}" class="dot2" alt="" style="width:250px;height:250px;border-radius:200px">
     <div>
     <!-- <button class = "btn2"> {{person1}} </button>
     <button class = "btn3"> {{person2}} </button> -->
     <div class = "btn2">
-      <h1 >{{person1}}</h1>
+      <!-- <h1 >{{person1}}</h1> -->
       <form method="post">
-          <input type="submit", name = "player1" value="Higher" >
+          <input type="submit", id="submit" name = "player1" value="{{person1}}" >
       </form>
     </div>
    <div class = "btn3">
-    <h1 >{{person2}}</h1>
+    <!-- <h1 >{{person2}}</h1> -->
         <form method="post">
-            <input type="submit", name = "player2" value="Higher" >
+            <input type ="submit", id="submit" name = "player2" value="{{person2}}" >
         </form>
    </div>
 
