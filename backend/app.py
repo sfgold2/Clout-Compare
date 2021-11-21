@@ -1,5 +1,4 @@
 import os
-from instagram_api import get_follower_count
 import util
 import db
 import random
@@ -74,16 +73,14 @@ game_over = False
 
 def get_rand():
     try:
-        first_person, username1 = random.choice(list(people.items()))
+        first_person, followers1 = random.choice(list(people.items()))
         del people[first_person]
-        sec_person, username2 = random.choice(list(people.items()))
+        sec_person, followers2 = random.choice(list(people.items()))
         del people[sec_person]
-        followers1 = get_follower_count("narendramodi")
-        followers2 = get_follower_count("shawnmendes")
         vs_list = ((first_person, followers1), (sec_person, followers2))
         return vs_list
     except:
-        return ((),())
+        return False
 
 def get_higher(pair):
     higher = 0
@@ -127,6 +124,7 @@ def game():
                 return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0])
             else:
                 game_over = True
+                return "Game over"
         elif request.form.get("player2"):
             if higher_pers[0] == vs_pair[0][0]:
                 score+=1
@@ -139,6 +137,7 @@ def game():
                 return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0])
             else:
                 game_over = True
+                return "Game over"
 @app.route("/creators", methods = ["GET"])
 def creators():
     pass
