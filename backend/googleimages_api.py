@@ -1,3 +1,4 @@
+import curses
 from google_images_search import GoogleImagesSearch
 
 API_KEY = 'AIzaSyAJOKrRkt44bdPNdwBEFeR8QzgBkTWqmLc'
