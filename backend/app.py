@@ -1,4 +1,5 @@
 import os
+from instagram_api import get_follower_count
 import util
 import db
 import random
@@ -73,14 +74,16 @@ game_over = False
 
 def get_rand():
     try:
-        first_person, followers1 = random.choice(list(people.items()))
+        first_person, username1 = random.choice(list(people.items()))
         del people[first_person]
-        sec_person, followers2 = random.choice(list(people.items()))
+        sec_person, username2 = random.choice(list(people.items()))
         del people[sec_person]
+        followers1 = get_follower_count("narendramodi")
+        followers2 = get_follower_count("shawnmendes")
         vs_list = ((first_person, followers1), (sec_person, followers2))
         return vs_list
     except:
-        return False
+        return ((),())
 
 def get_higher(pair):
     higher = 0
@@ -97,33 +100,45 @@ def index():
     return render_template("index.html")
 
 higher_pers = None
-vs_pair = {}
+vs_pair = []
 
 @app.route("/game", methods=["GET", "POST"])
 def game():
     global score
     global vs_pair
     global higher_pers
+    global game_over
     if request.method == "GET":
         new_people = get_rand()
-        vs_pair[new_people[0][0]] = new_people[0][1]
-        vs_pair[new_people[1][0]] = new_people[1][1]
+        vs_pair.append(new_people[0][0], new_people[0][1])
+        vs_pair.append(new_people[1][0], new_people[1][1])
         higher_pers = get_higher()
         return render_template("game.html", title='Clout Compare', person1 = new_people[0][0], person2 = new_people[1][0], test = vs_pair)
     if request.method == "POST":
         if request.form.get("player1"):
-            if higher_pers[0] == 
+            if higher_pers[0] == vs_pair[0][0]:
                 score+=1
-                vs_pair = {}
+                vs_pair = ()
                 higher_pers = None
                 new_people = get_rand()
-                vs_pair[new_people[0][0]] = new_people[0][1]
-                vs_pair[new_people[1][0]] = new_people[1][1]
+                vs_pair.append(new_people[0][0], new_people[0][1])
+                vs_pair.append(new_people[1][0], new_people[1][1])
                 print(score)
                 return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0])
+            else:
+                game_over = True
         elif request.form.get("player2"):
-            return "other"
-
+            if higher_pers[0] == vs_pair[0][0]:
+                score+=1
+                vs_pair = ()
+                higher_pers = None
+                new_people = get_rand()
+                vs_pair.append(new_people[0][0], new_people[0][1])
+                vs_pair.append(new_people[1][0], new_people[1][1])
+                print(score)
+                return render_template("game.html", person1 = new_people[0][0], person2 = new_people[1][0])
+            else:
+                game_over = True
 @app.route("/creators", methods = ["GET"])
 def creators():
     pass
