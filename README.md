@@ -32,7 +32,8 @@ If we had more time to work on this game, we could have gotten the exact number 
 
 
 #Screenshots
-https://user-images.githubusercontent.com/73331313/142795790-55ea9559-510d-4cba-a028-339ea3dd240b.png
-https://user-images.githubusercontent.com/73331313/142795795-f19916fd-e2e3-475c-b484-5af4c52eff3a.png
-https://user-images.githubusercontent.com/73331313/142795799-f68d196b-12e0-49a2-b442-b01bbe6db5d0.png
-https://user-images.githubusercontent.com/73331313/142795798-3b20d71e-52e8-4773-9f0c-61e83a1d3c36.png
+<img width="1668" alt="Homepage" src="https://user-images.githubusercontent.com/73331313/142795790-55ea9559-510d-4cba-a028-339ea3dd240b.png">
+<img width="1668" alt="Game" src="https://user-images.githubusercontent.com/73331313/142795795-f19916fd-e2e3-475c-b484-5af4c52eff3a.png">
+<img width="1668" alt="GameOver" src="https://user-images.githubusercontent.com/73331313/142795799-f68d196b-12e0-49a2-b442-b01bbe6db5d0.png">
+<img width="1668" alt="About" src="https://user-images.githubusercontent.com/73331313/142795798-3b20d71e-52e8-4773-9f0c-61e83a1d3c36.png">
+
