@@ -31,7 +31,7 @@ As we all know, this is a beginner hackathon and as beginners, we were not expos
 If we had more time to work on this game, we could have gotten the exact number of followers for the Instagram profiles and created animations for guessing correctly, guessing incorrectly, and going to the next pair of Instagram profiles. We would also like to implement a game mode that is playable with friends’ Instagram profiles.
 
 
-#Screenshots
+# Screenshots
 <img width="1668" alt="Homepage" src="https://user-images.githubusercontent.com/73331313/142795790-55ea9559-510d-4cba-a028-339ea3dd240b.png">
 <img width="1668" alt="Game" src="https://user-images.githubusercontent.com/73331313/142795795-f19916fd-e2e3-475c-b484-5af4c52eff3a.png">
 <img width="1668" alt="GameOver" src="https://user-images.githubusercontent.com/73331313/142795799-f68d196b-12e0-49a2-b442-b01bbe6db5d0.png">
