@@ -1,5 +1,7 @@
 # CloutCompare
-A fun gamified application to guess which celebrity has more followers in instagram
+Do you think you can recognize a clout chaser? Do you think you’re in touch with pop culture? Play Clout Compare to test your knowledge of pop culture, including fan-favorite celebrities and brands! Challenge your friends and compete for the Clout Crown!
+Coming soon: Friends and family capability <3
+
 
 Built for Zothacks 2021
 
